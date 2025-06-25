@@ -1,0 +1,167 @@
+:root {
+  --animation-speed: 2s; /* Speed manager variable - change this to control speed */
+  --neon-green: #00ff88;
+  --neon-green-dark: #00cc66;
+  --neon-green-light: #00ff41;
+  --neon-green-bright: #66ffaa;
+  --neon-green-soft: #44ff77;
+}
+
+#shape {
+    height: 300px;
+    width: 300px;
+    background: tomato;
+    margin: auto auto auto auto;
+    border: 2px solid var(--neon-green);
+    animation: colorchange var(--animation-speed) infinite;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.4), inset 0 0 20px rgba(0, 255, 136, 0.1);
+}
+
+html{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background: #000;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    background: #222;
+    perspective: 1px;
+    transform-style: preserve-3d;
+}
+
+.section1, .section2 {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+}
+
+.section1::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: url("base.png") top center;
+    background-size: cover;
+    transform: translateZ(-1px) scale(2.2);
+    filter: blur(2px);
+}
+
+.section1::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: url("outer-layer-blur.png") top center;
+    background-size: cover;
+}
+
+.section2 {
+    background: rgb(68,35,19);
+}
+
+.text {
+    top: 30%;
+    left: 50%;
+    position: absolute;
+    font-family: 'Franklin Gothic Heavy';
+    font-size: 15vw;
+    color: white;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3),
+                 5px 5px 70px rgba(255,255,255,0.5);
+    transform: scale(1,1.1) translate(-50%, 10%);
+}
+
+@keyframes colorchange{
+
+  0%  {
+    background: linear-gradient(45deg, var(--neon-green), rgba(0, 255, 136, 0.3));
+    border-radius:0 0 0 0;
+    clip-path: none;
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.6), inset 0 0 30px rgba(0, 255, 136, 0.2);
+  }
+  12.5%  {
+    background: linear-gradient(45deg, var(--neon-green-light), rgba(0, 255, 65, 0.3));
+    border-radius:20% 20% 20% 20%;
+    clip-path: none;
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.6), inset 0 0 30px rgba(0, 255, 65, 0.2);
+  }
+  25%  {
+    background: linear-gradient(45deg, var(--neon-green-dark), rgba(0, 204, 102, 0.3));
+    border-radius:40% 40% 40% 40%;
+    clip-path: none;
+    box-shadow: 0 0 30px rgba(0, 204, 102, 0.6), inset 0 0 30px rgba(0, 204, 102, 0.2);
+  }
+  37.5%  {
+    background: linear-gradient(45deg, var(--neon-green-bright), rgba(102, 255, 170, 0.3));
+    border-radius:60% 60% 60% 60%;
+    clip-path: none;
+    box-shadow: 0 0 30px rgba(102, 255, 170, 0.6), inset 0 0 30px rgba(102, 255, 170, 0.2);
+  }
+  50% {
+    background: linear-gradient(45deg, var(--neon-green-soft), rgba(68, 255, 119, 0.3));
+    border-radius:80% 80% 80% 80%;
+    clip-path: none;
+    box-shadow: 0 0 30px rgba(68, 255, 119, 0.6), inset 0 0 30px rgba(68, 255, 119, 0.2);
+  }
+  
+  /* Picosecond transition: Direct circle → triangle morph */
+  50.001%  {
+    background: linear-gradient(45deg, var(--neon-green-bright), rgba(102, 255, 170, 0.3));
+    border-radius:65% 65% 65% 65%;
+    clip-path: polygon(50% 10%, 85% 75%, 15% 75%);
+    box-shadow: 0 0 30px rgba(102, 255, 170, 0.6), inset 0 0 30px rgba(102, 255, 170, 0.2);
+  }
+  50.002%  {
+    background: linear-gradient(45deg, var(--neon-green-light), rgba(0, 255, 65, 0.3));
+    border-radius:50% 50% 50% 50%;
+    clip-path: polygon(50% 15%, 80% 80%, 20% 80%);
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.6), inset 0 0 30px rgba(0, 255, 65, 0.2);
+  }
+  50.003%  {
+    background: linear-gradient(45deg, var(--neon-green-dark), rgba(0, 204, 102, 0.3));
+    border-radius:35% 35% 35% 35%;
+    clip-path: polygon(50% 20%, 75% 85%, 25% 85%);
+    box-shadow: 0 0 30px rgba(0, 204, 102, 0.6), inset 0 0 30px rgba(0, 204, 102, 0.2);
+  }
+  62.5%  {
+    background: linear-gradient(45deg, var(--neon-green-dark), rgba(0, 204, 102, 0.3));
+    border-radius:25% 25% 25% 25%;
+    clip-path: polygon(50% 12%, 82% 82%, 18% 82%);
+    box-shadow: 0 0 30px rgba(0, 204, 102, 0.6), inset 0 0 30px rgba(0, 204, 102, 0.2);
+  }
+  75%  {
+    background: linear-gradient(45deg, var(--neon-green-bright), rgba(102, 255, 170, 0.3));
+    border-radius:15% 15% 15% 15%;
+    clip-path: polygon(50% 8%, 88% 88%, 12% 88%);
+    box-shadow: 0 0 30px rgba(102, 255, 170, 0.6), inset 0 0 30px rgba(102, 255, 170, 0.2);
+  }
+  81%  {
+    background: linear-gradient(45deg, var(--neon-green-bright), rgba(102, 255, 170, 0.3));
+    border-radius:15% 15% 15% 15%;
+    clip-path: polygon(50% 10%, 85% 85%, 15% 85%);
+    box-shadow: 0 0 30px rgba(102, 255, 170, 0.6), inset 0 0 30px rgba(102, 255, 170, 0.2);
+  }
+  87.5%  {
+    background: linear-gradient(45deg, var(--neon-green-bright), rgba(102, 255, 170, 0.3));
+    border-radius:10% 10% 10% 10%;
+    clip-path: polygon(50% 5%, 90% 90%, 10% 90%);
+    box-shadow: 0 0 30px rgba(102, 255, 170, 0.6), inset 0 0 30px rgba(102, 255, 170, 0.2);
+  }
+  94%  {
+    background: linear-gradient(45deg, var(--neon-green), rgba(0, 255, 136, 0.3));
+    border-radius:5% 5% 5% 5%;
+    clip-path: polygon(50% 0%, 95% 95%, 5% 95%);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.6), inset 0 0 30px rgba(0, 255, 136, 0.2);
+  }
+  100% {
+    background: linear-gradient(45deg, var(--neon-green), rgba(0, 255, 136, 0.3));
+    border-radius:0 0 0 0;
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.6), inset 0 0 30px rgba(0, 255, 136, 0.2);
+  }
+}
+

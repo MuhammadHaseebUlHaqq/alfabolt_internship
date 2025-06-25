@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shape Morpher - Black Neon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .nav a {
+            padding: 10px 20px;
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+            text-decoration: none;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .nav a:hover {
+            background: rgba(0, 255, 136, 0.2);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .loading-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .shape-loader {
+            width: 120px;
+            height: 120px;
+            position: relative;
+            animation: shapeSequence 4s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+        }
+
+        @keyframes shapeSequence {
+            /* Square Phase - 0% to 25% */
+            0%, 20% {
+                background: linear-gradient(45deg, #00ff88, #00cc66, #008844);
+                border-radius: 0;
+                clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+                transform: scale(1) rotate(0deg);
+                box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+            }
+
+            /* Square to Circle Transition - 25% to 45% */
+            25% {
+                background: linear-gradient(45deg, #00ff88, #00cc66, #00aa55);
+                border-radius: 25%;
+                clip-path: polygon(10% 10%, 90% 10%, 90% 90%, 10% 90%);
+                transform: scale(1.1) rotate(45deg);
+                box-shadow: 0 0 30px rgba(0, 255, 136, 0.8);
+            }
+
+            /* Circle Phase - 45% to 65% */
+            45%, 60% {
+                background: linear-gradient(45deg, #00ff88, #00dd77, #00bb66);
+                border-radius: 50%;
+                clip-path: circle(50% at 50% 50%);
+                transform: scale(1) rotate(90deg);
+                box-shadow: 0 0 40px rgba(0, 255, 136, 0.8);
+            }
+
+            /* Circle to Triangle Transition - 65% to 75% */
+            65% {
+                background: linear-gradient(45deg, #00ff88, #33ff99, #00cc66);
+                border-radius: 30%;
+                clip-path: circle(45% at 50% 50%);
+                transform: scale(1.05) rotate(135deg);
+                box-shadow: 0 0 35px rgba(0, 255, 136, 0.8);
+            }
+
+            70% {
+                background: linear-gradient(45deg, #00ff88, #44ffaa, #00dd77);
+                border-radius: 15%;
+                clip-path: polygon(50% 15%, 15% 85%, 85% 85%);
+                transform: scale(0.95) rotate(180deg);
+                box-shadow: 0 0 30px rgba(0, 255, 136, 0.9);
+            }
+
+            /* Triangle Phase - 75% to 85% */
+            75%, 80% {
+                background: linear-gradient(45deg, #00ff88, #00ee77, #00cc66);
+                border-radius: 0;
+                clip-path: polygon(50% 10%, 10% 90%, 90% 90%);
+                transform: scale(1) rotate(225deg);
+                box-shadow: 0 0 25px rgba(0, 255, 136, 0.8);
+            }
+
+            /* Explosion Phase - 85% to 95% */
+            85% {
+                background: linear-gradient(45deg, #00ff88, #66ffbb, #00dd77);
+                border-radius: 50%;
+                clip-path: polygon(50% 10%, 10% 90%, 90% 90%);
+                transform: scale(1.5) rotate(270deg);
+                box-shadow: 0 0 60px rgba(0, 255, 136, 1);
+                opacity: 0.8;
+            }
+
+            90% {
+                background: radial-gradient(circle, #00ff88, #00cc66, transparent);
+                border-radius: 50%;
+                clip-path: circle(30% at 50% 50%);
+                transform: scale(2) rotate(315deg);
+                box-shadow: 0 0 80px rgba(0, 255, 136, 0.6);
+                opacity: 0.3;
+            }
+
+            /* Reassemble Phase - 95% to 100% */
+            95% {
+                background: linear-gradient(45deg, #00ff88, #00cc66, #008844);
+                border-radius: 25%;
+                clip-path: polygon(20% 20%, 80% 20%, 80% 80%, 20% 80%);
+                transform: scale(0.8) rotate(360deg);
+                box-shadow: 0 0 40px rgba(0, 255, 136, 0.7);
+                opacity: 0.6;
+            }
+
+            100% {
+                background: linear-gradient(45deg, #00ff88, #00cc66, #008844);
+                border-radius: 0;
+                clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+                transform: scale(1) rotate(360deg);
+                box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+                opacity: 1;
+            }
+        }
+
+        /* Particle Effect */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, #00ff88, #00cc66);
+            border-radius: 50%;
+            animation: particleFloat 5.5s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        .particle:nth-child(1) { 
+            top: 20%; left: 30%; 
+            animation-delay: 4.6s;
+        }
+        .particle:nth-child(2) { 
+            top: 40%; left: 70%; 
+            animation-delay: 4.7s;
+        }
+        .particle:nth-child(3) { 
+            top: 60%; left: 20%; 
+            animation-delay: 4.8s;
+        }
+        .particle:nth-child(4) { 
+            top: 80%; left: 60%; 
+            animation-delay: 4.9s;
+        }
+        .particle:nth-child(5) { 
+            top: 30%; left: 80%; 
+            animation-delay: 5.0s;
+        }
+        .particle:nth-child(6) { 
+            top: 70%; left: 40%; 
+            animation-delay: 5.1s;
+        }
+        .particle:nth-child(7) { 
+            top: 10%; left: 50%; 
+            animation-delay: 5.2s;
+        }
+        .particle:nth-child(8) { 
+            top: 50%; left: 10%; 
+            animation-delay: 5.3s;
+        }
+
+        @keyframes particleFloat {
+            0%, 84% { 
+                opacity: 0; 
+                transform: scale(0) translate(0, 0); 
+            }
+            85% { 
+                opacity: 1; 
+                transform: scale(1) translate(0, 0); 
+            }
+            88% { 
+                opacity: 1; 
+                transform: scale(1.2) translate(var(--float-x, 20px), var(--float-y, -20px)); 
+            }
+            92% { 
+                opacity: 0.8; 
+                transform: scale(0.8) translate(var(--float-x2, -15px), var(--float-y2, 25px)); 
+            }
+            95%, 100% { 
+                opacity: 0; 
+                transform: scale(0) translate(0, 0); 
+            }
+        }
+
+        .particle:nth-child(odd) {
+            --float-x: 30px;
+            --float-y: -25px;
+            --float-x2: -20px;
+            --float-y2: 30px;
+        }
+
+        .particle:nth-child(even) {
+            --float-x: -25px;
+            --float-y: -30px;
+            --float-x2: 25px;
+            --float-y2: -15px;
+        }
+
+        .loading-text {
+            color: #00ff88;
+            font-size: 1.5em;
+            margin-top: 40px;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 2px;
+            animation: textPulse 4s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        @keyframes textPulse {
+            0%, 20% { 
+                color: #00ff88; 
+                text-shadow: 0 0 10px rgba(0, 255, 136, 0.5); 
+            }
+            45%, 60% { 
+                color: #00cc66; 
+                text-shadow: 0 0 10px rgba(0, 204, 102, 0.5); 
+            }
+            75%, 80% { 
+                color: #00ff88; 
+                text-shadow: 0 0 10px rgba(0, 255, 136, 0.5); 
+            }
+            85%, 95% { 
+                color: #66ffbb; 
+                text-shadow: 0 0 15px rgba(102, 255, 187, 0.8); 
+            }
+            100% { 
+                color: #00ff88; 
+                text-shadow: 0 0 10px rgba(0, 255, 136, 0.5); 
+            }
+        }
+
+        /* Glow effect behind the loader */
+        .glow-bg {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, transparent, rgba(0, 255, 136, 0.1));
+            border-radius: 50%;
+            animation: glowPulse 4s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes glowPulse {
+            0%, 20% { 
+                background: radial-gradient(circle, transparent, rgba(0, 255, 136, 0.2));
+                transform: scale(1);
+            }
+            45%, 60% { 
+                background: radial-gradient(circle, transparent, rgba(0, 204, 102, 0.2));
+                transform: scale(1.2);
+            }
+            75%, 80% { 
+                background: radial-gradient(circle, transparent, rgba(0, 255, 136, 0.2));
+                transform: scale(1.1);
+            }
+            85% { 
+                background: radial-gradient(circle, transparent, rgba(0, 255, 136, 0.4));
+                transform: scale(1.8);
+            }
+            95%, 100% { 
+                background: radial-gradient(circle, transparent, rgba(0, 255, 136, 0.2));
+                transform: scale(1);
+            }
+        }
+
+        .description {
+            color: #aaa;
+            font-size: 1rem;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 300;
+            line-height: 1.6;
+            max-width: 500px;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .loading-text {
+                font-size: 1.2em;
+            }
+            
+            .description {
+                font-size: 0.9rem;
+                margin: 15px 20px 0;
+            }
+            
+            .loading-container {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .shape-loader {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="../../index.html">← Back</a>
+    </nav>
+
+    <div class="loading-container">
+        <div class="glow-bg"></div>
+        <div class="shape-loader"></div>
+        <div class="particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+    </div>
+    <div class="loading-text">LOADING...</div>
+    <div class="description">
+        Geometric transformation through square, circle, triangle, and finally exploding into particle-like dots before reassembling.
+    </div>
+</body>
+</html>

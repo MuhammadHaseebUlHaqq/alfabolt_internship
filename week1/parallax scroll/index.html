@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Animations - Black Neon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00ff88, #00cc66);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #888;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .demo-card {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .demo-card:hover {
+            border-color: #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .demo-card h2 {
+            color: #00ff88;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-card p {
+            color: #aaa;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #00ff88, #00cc66);
+            color: #000;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+            transform: scale(1.05);
+        }
+
+        .footer {
+            margin-top: 3rem;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Simple Animations</h1>
+        <p class="subtitle">Clean, minimal implementations with smooth black neon aesthetics</p>
+        
+        <div class="demo-grid">
+            <div class="demo-card">
+                <h2> Parallax Scroll</h2>
+                <p>Smooth multi-layer scrolling effect with floating elements and depth perception.</p>
+                <a href="features/parallex/Parallax-Website/index.html" class="btn">View Demo</a>
+            </div>
+            
+            <div class="demo-card">
+                <h2> Shape Morpher</h2>
+                <p>Geometric loading animation that transforms through multiple shapes with neon glow effects.</p>
+                <a href="features/shape-loader/index.html" class="btn">View Demo</a>
+            </div>
+        </div>
+        
+        
+    </div>
+</body>
+</html> 

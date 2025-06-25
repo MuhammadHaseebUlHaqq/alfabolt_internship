@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="calculator-container">
+        <div class="calculator">
+            <div class="display-section">
+                <div class="input-display">
+                    <input type="text" id="expression-input" placeholder="Enter expression..." readonly>
+                </div>
+                <div class="output-display">
+                    <span id="result">0</span>
+                </div>
+            </div>
+
+            <div class="buttons-section">
+                <!-- Scientific Functions -->
+                <div class="button-row">
+                    <button class="btn function" data-action="sin">sin</button>
+                    <button class="btn function" data-action="cos">cos</button>
+                    <button class="btn function" data-action="tan">tan</button>
+                    <button class="btn function" data-action="sqrt">√</button>
+                </div>
+
+                <div class="button-row">
+                    <button class="btn function" data-action="log">log</button>
+                    <button class="btn function" data-action="ln">ln</button>
+                    <button class="btn function" data-action="factorial">x!</button>
+                    <button class="btn function" data-action="power">x^y</button>
+                </div>
+
+                <!-- Numbers and Basic Operations -->
+                <div class="button-row">
+                    <button class="btn number" data-value="7">7</button>
+                    <button class="btn number" data-value="8">8</button>
+                    <button class="btn number" data-value="9">9</button>
+                    <button class="btn operator" data-value="/">÷</button>
+                </div>
+
+                <div class="button-row">
+                    <button class="btn number" data-value="4">4</button>
+                    <button class="btn number" data-value="5">5</button>
+                    <button class="btn number" data-value="6">6</button>
+                    <button class="btn operator" data-value="*">×</button>
+                </div>
+
+                <div class="button-row">
+                    <button class="btn number" data-value="1">1</button>
+                    <button class="btn number" data-value="2">2</button>
+                    <button class="btn number" data-value="3">3</button>
+                    <button class="btn operator" data-value="-">-</button>
+                </div>
+
+                <div class="button-row">
+                    <button class="btn number" data-value="0">0</button>
+                    <button class="btn number" data-value=".">.</button>
+                    <button class="btn operator" data-value="^">^</button>
+                    <button class="btn operator" data-value="+">+</button>
+                </div>
+
+                <!-- Parentheses and Clear -->
+                <div class="button-row">
+                    <button class="btn" data-value="(">(</button>
+                    <button class="btn" data-value=")">)</button>
+                    <button class="btn clear" data-action="clear">C</button>
+                    <button class="btn equals" data-action="calculate">=</button>
+                </div>
+
+                <!-- Constants -->
+                <div class="button-row">
+                    <button class="btn constant" data-value="pi">π</button>
+                    <button class="btn constant" data-value="e">e</button>
+                    <button class="btn backspace" data-action="backspace">⌫</button>
+                    <button class="btn" data-action="add-to-history">Save</button>
+                </div>
+            </div>
+
+            <!-- Variables Section -->
+            <div class="variables-section">
+                <h3>Variables</h3>
+                <div class="variable-input">
+                    <input type="text" id="var-name" placeholder="Variable name">
+                    <input type="text" id="var-value" placeholder="Value">
+                    <button id="add-variable">Add Variable</button>
+                </div>
+                <div id="variables-list"></div>
+            </div>
+        </div>
+
+        <!-- History Section -->
+        <div class="history-section">
+            <h3>History</h3>
+            <div id="history-list"></div>
+            <button id="clear-history">Clear History</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
