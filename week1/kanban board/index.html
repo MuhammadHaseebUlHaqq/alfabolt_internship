@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanban Board</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="main-header">
+    <div class="logo"></div>
+    <div class="search-bar-container">
+      <input type="text" class="search-bar" placeholder="Search for .." />
+    </div>
+    <button class="central-add-task-btn">+ Add Task</button>
+  </header>
+  <div class="kanban-container">
+    <div class="kanban-column" data-column="backlog">
+      <div class="kanban-header">Backlog</div>
+      <div class="kanban-tasks" id="backlog-tasks"></div>
+    </div>
+    <div class="kanban-column" data-column="todo">
+      <div class="kanban-header">Todo</div>
+      <div class="kanban-tasks" id="todo-tasks"></div>
+    </div>
+    <div class="kanban-column" data-column="done">
+      <div class="kanban-header">Done</div>
+      <div class="kanban-tasks" id="done-tasks"></div>
+    </div>
+  </div>
+  <div class="modal-overlay" id="addTaskModal">
+    <div class="modal">
+      <h2>Add New Task</h2>
+      <form id="modalAddTaskForm">
+        <label>Task Name<input type="text" id="modalTaskName" required></label>
+        <label>Description<input type="text" id="modalTaskDesc" required></label>
+        <label>Time<input type="date" id="modalTaskTime" required></label>
+        <label>By<select id="modalTaskBy" required>
+          <option value="0">OZ</option>
+          <option value="1">LE</option>
+          <option value="2">AM</option>
+          <option value="3">ME</option>
+        </select></label>
+        <label>Column<select id="modalTaskColumn" required>
+          <option value="backlog">Backlog</option>
+          <option value="todo">Todo</option>
+          <option value="done">Done</option>
+        </select></label>
+        <div class="modal-actions">
+          <button type="submit" class="modal-add-btn">Add</button>
+          <button type="button" class="modal-cancel-btn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html> 
